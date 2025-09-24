@@ -1,6 +1,9 @@
 import Features from '@/components/sections/Features';
 import HeroSection from '@/components/sections/HeroSection';
 import BuildEveryone from '@/components/sections/BuildEveryone';
+import Testimonial from '@/components/sections/Testimonial';
+import FAQ from '@/components/sections/FAQ';
+import Footer from '@/components/sections/Footer';
 
 export default function Home() {
   return (
@@ -8,6 +11,9 @@ export default function Home() {
       <HeroSection />
       <Features />
       <BuildEveryone />
+      <Testimonial />
+      <FAQ />
+      <Footer />
     </div>
   );
 }
