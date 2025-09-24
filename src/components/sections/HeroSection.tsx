@@ -4,10 +4,16 @@ import logo from '@/assets/logo-scape.png';
 import heroPhone from '@/assets/images/hero/hero-phone.png';
 import appStore from '@/assets/images/hero/app-store.png';
 import playStore from '@/assets/images/hero/play-store.png';
+import bgEllipse from '@/assets/images/hero/ellipse-hero.png';
+import bgMobileImage from '@/assets/images/service/service-image-bg.png';
+import vectorKingImg from '@/assets/images/icons/vector2.png';
+import frameImg from '@/assets/images/icons/frame.png';
 
 const HeroSection = () => {
   return (
-    <div>
+    <div
+      className="bg-cover bg-center"
+      style={{backgroundImage: `url(${bgEllipse.src})`}}>
       <Container>
         <div>
           {/* Navbar */}
@@ -26,8 +32,24 @@ const HeroSection = () => {
           {/* Hero */}
 
           <div className="grid grid-cols-2 justify-between items-center">
-            <div className="max-w-[655px]">
-              <h2>All Your Jobs One Smart App</h2>
+            <div className="max-w-[655px] relative">
+              <Image
+                src={vectorKingImg}
+                width={130}
+                height={134}
+                alt="hero phone logo"
+                className="bg-cover bg-center absolute -top-16 left-[210px]"
+              />
+              <Image
+                src={frameImg}
+                width={240}
+                height={11}
+                alt="hero phone logo"
+                className="bg-cover bg-center absolute top-34 left-[220px] -z-1"
+              />
+              <h2 className="text-7xl font-bold text-[#212B36] mb-4">
+                All Your Jobs One Smart App
+              </h2>
               <p>
                 Built for business owners, employees, and clients streamline job
                 scheduling, service tracking, and team management in one
@@ -46,13 +68,15 @@ const HeroSection = () => {
               </div>
             </div>
 
-            <div>
+            <div
+              className="bg-cover bg-center"
+              style={{backgroundImage: `url(${bgMobileImage.src})`}}>
               <Image
                 src={heroPhone}
                 height={656}
                 width={720}
                 alt="hero phone logo"
-                className="bg-contain"
+                className="bg-cover bg-center"
               />
             </div>
           </div>

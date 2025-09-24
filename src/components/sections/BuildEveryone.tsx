@@ -6,15 +6,26 @@ import serviceImage2 from '@/assets/images/service/service2.png';
 import serviceImage3 from '@/assets/images/service/service3.png';
 import bgImage from '@/assets/images/service/service-image-bg.png';
 import BuildEveryoneContent from '../ui/BuildEveryoneContent';
+import frameImg from '@/assets/images/icons/frame.png';
 
 const BuildEveryone = () => {
   return (
     <Container>
-      <SectionHeading
-        heading="Build for Everyone"
-        desc="Whether you are booking services, managing tasks, or running
+      <div className="relative">
+        <SectionHeading
+          heading="Build for Everyone"
+          desc="Whether you are booking services, managing tasks, or running
           operations, we have designed the perfect experience for you."
-      />
+        />
+
+        <Image
+          src={frameImg}
+          width={240}
+          height={11}
+          alt="hero phone logo"
+          className="bg-cover bg-center absolute top-11 left-[48%] -z-1"
+        />
+      </div>
 
       <div className="space-y-5 mt-20">
         {/* content 1 */}
