@@ -7,6 +7,9 @@ import serviceImage3 from '@/assets/images/service/service3.png';
 import bgImage from '@/assets/images/service/service-image-bg.png';
 import BuildEveryoneContent from '../ui/BuildEveryoneContent';
 import frameImg from '@/assets/images/icons/frame.png';
+import frame3Img from '@/assets/images/icons/frame3.png';
+import middleFrame from '@/assets/images/icons/middle-frame.png';
+import rightFrame from '@/assets/images/icons/right-frame.png';
 
 const BuildEveryone = () => {
   return (
@@ -25,9 +28,30 @@ const BuildEveryone = () => {
           alt="hero phone logo"
           className="bg-cover bg-center absolute top-11 left-[48%] -z-1"
         />
+        <Image
+          src={frame3Img}
+          width={221}
+          height={124}
+          alt="hero phone logo"
+          className="bg-cover bg-center absolute top-24 left-20"
+        />
+        <Image
+          src={middleFrame}
+          width={341}
+          height={1253}
+          alt="hero phone logo"
+          className="bg-cover bg-center absolute top-28 left-[34%]"
+        />
+        <Image
+          src={rightFrame}
+          width={250}
+          height={732}
+          alt="hero phone logo"
+          className="bg-cover bg-center absolute top-24 -right-24"
+        />
       </div>
 
-      <div className="space-y-5 mt-20">
+      <div className="space-y-5 mt-24">
         {/* content 1 */}
         <div className="grid grid-cols-2 justify-between items-center">
           {/* Service */}
