@@ -12,6 +12,12 @@ body {
   --color-primary: #3ba334;
 }
 
+@layer base {
+  p {
+    @apply text-[#637381] font-normal text-base;
+  }
+}
+
 form {
   @apply flex flex-col items-start gap-8 w-full;
 }
