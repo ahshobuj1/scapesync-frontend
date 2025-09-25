@@ -74,8 +74,8 @@ const BuildEveryone = () => {
             desc="Easily schedule appointments, get real-time updates, and enjoy a
               smooth, transparent service experience."
             col1="Book services in seconds"
-            col2="Book services in seconds"
-            col3="Book services in seconds"
+            col2="Track real-time job updates"
+            col3="Schedule appointments at your convenience"
           />
         </div>
 
@@ -96,13 +96,12 @@ const BuildEveryone = () => {
 
           {/* Service */}
           <BuildEveryoneContent
-            name="Users"
+            name="Business Owners"
             title="Book services, track progress and stay updated"
-            desc="Easily schedule appointments, get real-time updates, and enjoy a
-              smooth, transparent service experience."
-            col1="Book services in seconds"
-            col2="Book services in seconds"
-            col3="Book services in seconds"
+            desc="Gain full control of your workforce with real-time tracking, smart scheduling, and service management in one app."
+            col1="Assign jobs to the right team member"
+            col2="Monitor performance in real time"
+            col3="Manage clients and services seamlessly"
           />
         </div>
 
@@ -123,13 +122,12 @@ const BuildEveryone = () => {
 
           {/* Service */}
           <BuildEveryoneContent
-            name="Users"
-            title="Book services, track progress and stay updated"
-            desc="Easily schedule appointments, get real-time updates, and enjoy a
-              smooth, transparent service experience."
-            col1="Book services in seconds"
-            col2="Book services in seconds"
-            col3="Book services in seconds"
+            name="Employees"
+            title="See tasks, track time, and navigate routes with ease."
+            desc="Everything you need to manage your workday from job assignments to optimized routes and time logging."
+            col1="Assign jobs to the right team member"
+            col2="Monitor performance in real time"
+            col3="Manage clients and services seamlessly"
           />
         </div>
       </div>
