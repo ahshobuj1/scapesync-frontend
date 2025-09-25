@@ -32,8 +32,8 @@ const HeroSection = () => {
           </div>
 
           {/* Hero */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 justify-between items-center">
-            <div className="max-w-[655px] relative mt-28 lg:mt-0">
+          <div className="grid grid-cols-1 lg:grid-cols-2 justify-items-center lg:justify-between items-center">
+            <div className="max-w-2xl md:max-w-xl lg:max-w-[655px] relative mt-28 md:mt-16 lg:mt-0">
               <Image
                 src={vectorKingImg}
                 width={130}

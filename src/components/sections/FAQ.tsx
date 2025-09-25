@@ -3,6 +3,7 @@ import {useState} from 'react';
 import SectionHeading from '../ui/SectionHeading';
 import {GoPlus} from 'react-icons/go';
 import {PiMinusLight} from 'react-icons/pi';
+import Container from '@mui/material/Container';
 
 type AccordionItem = {
   title: string;
@@ -39,41 +40,43 @@ const FAQ = () => {
     setOpenIndex(openIndex === index ? null : index);
   };
   return (
-    <div className="mb-40">
-      <SectionHeading
-        heading="What Our Users Are Saying"
-        desc="Real stories from clients, employees, and business owners who use our app."
-      />
+    <Container>
+      <div className="mb-16 lg:mb-40">
+        <SectionHeading
+          heading="What Our Users Are Saying"
+          desc="Real stories from clients, employees, and business owners who use our app."
+        />
 
-      <div className="mt-16">
-        <div className="w-full max-w-[996px] mx-auto space-y-4">
-          {items.map((item, index) => (
-            <div
-              key={index}
-              className="border-[1px] border-[#C7E6C5] rounded-xl p-6 shadow-sm overflow-hidden ">
-              <button
-                onClick={() => toggle(index)}
-                className="w-full flex justify-between items-center text-base text-[#212B36] text-left font-semibold transition cursor-pointer">
-                {item.title}
-                <span
-                  className={`transform transition-transform duration-1000`}>
-                  {openIndex === index ? <PiMinusLight /> : <GoPlus />}
-                </span>
-              </button>
-
+        <div className="mt-12 lg:mt-16">
+          <div className="w-full max-w-[996px] mx-auto space-y-4">
+            {items.map((item, index) => (
               <div
-                className={`transition-all duration-300 overflow-hidden ${
-                  openIndex === index ? 'max-h-40 p-4' : 'max-h-0'
-                }`}>
-                <p className="text-[#637381] text-sm font-normal">
-                  {item.content}
-                </p>
+                key={index}
+                className="border-[1px] border-[#C7E6C5] rounded-xl p-6 shadow-sm overflow-hidden ">
+                <button
+                  onClick={() => toggle(index)}
+                  className="w-full flex justify-between items-center text-base text-[#212B36] text-left font-semibold transition cursor-pointer">
+                  {item.title}
+                  <span
+                    className={`transform transition-transform duration-1000`}>
+                    {openIndex === index ? <PiMinusLight /> : <GoPlus />}
+                  </span>
+                </button>
+
+                <div
+                  className={`transition-all duration-300 overflow-hidden ${
+                    openIndex === index ? 'max-h-40 p-4' : 'max-h-0'
+                  }`}>
+                  <p className="text-[#637381] text-sm font-normal">
+                    {item.content}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </Container>
   );
 };
 

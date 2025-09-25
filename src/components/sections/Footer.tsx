@@ -16,25 +16,25 @@ const Footer = () => {
         className="bg-cover bg-center"
         style={{backgroundImage: `url(${footerBg.src})`}}>
         <Container>
-          <div className="pt-24">
-            <div className="grid grid-cols-3 items-center justify-between mb-24">
+          <div className="pt-12 lg:pt-24">
+            <div className="grid grid-cols-1 lg:grid-cols-3 items-center gap-6 lg:gap-0 justify-center lg:justify-between mb-12 lg:mb-24">
               <Image
                 src={footerLogo}
                 height={60}
                 width={147}
                 alt="logo ScapeSync"
-                className="bg-cover"
+                className="bg-cover "
               />
 
               <div>
-                <p className="text-base font-medium text-[#CFD8D6]">
+                <p className="text-base font-medium text-start text-[#CFD8D6]">
                   Your all-in-one platform for job scheduling, employee
                   management, and client service built to keep your business
                   running smoothly from anywhere.
                 </p>
               </div>
 
-              <div className="flex gap-[18px] justify-end">
+              <div className="flex gap-[18px] justify-start lg:justify-end">
                 <Image src={appStore} height={50} width={140} alt="appStore" />
                 <Image
                   src={playStore}
@@ -45,7 +45,7 @@ const Footer = () => {
               </div>
             </div>
 
-            <div className="flex gap-8 mb-14">
+            <div className="flex gap-8 mb-8 lg:mb-14">
               <Image
                 src={icon4}
                 height={24}

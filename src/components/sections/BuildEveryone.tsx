@@ -33,21 +33,21 @@ const BuildEveryone = () => {
           width={221}
           height={124}
           alt="hero phone logo"
-          className="bg-cover bg-center absolute top-24 left-0 hidden lg:block"
+          className="bg-cover bg-center absolute top-24 lg:left-20 hidden lg:block"
         />
         <Image
           src={middleFrame}
           width={341}
           height={1253}
           alt="hero phone logo"
-          className="bg-cover bg-center absolute top-28 left-0"
+          className="bg-cover bg-center absolute top-28 left-0 lg:left-[34%]"
         />
         <Image
           src={rightFrame}
           width={250}
           height={732}
           alt="hero phone logo"
-          className="bg-cover bg-center absolute top-24 right-5"
+          className="bg-cover bg-center absolute top-24 right-5 lg:-right-24"
         />
       </div>
 

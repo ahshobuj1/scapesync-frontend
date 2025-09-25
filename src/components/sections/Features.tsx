@@ -48,11 +48,13 @@ const Features = () => {
         </div>
 
         {/* Features */}
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8 lg:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8 lg:gap-6">
           {features.map((feature, index) => (
             <div key={index} className="relative">
               {/* Feature Card */}
-              <div className="text-left h-full flex flex-col items-start p-2 lg:p-4 rounded-xl hover:shadow-lg transition-all duration-300 hover:transform hover:scale-101">
+              <div
+                className="text-left h-full flex flex-col items-start p-2 lg:p-4 rounded-xl hover:shadow-lg 
+              transition-all duration-300 hover:transform hover:scale-101 border-2 border-gray-200 lg:border-0 cursor-pointer">
                 {/* Icon Container */}
                 <div className="h-14 w-14 lg:h-12 lg:w-12 rounded-xl bg-[#ECFCEB] flex items-center justify-center mb-4 lg:mb-6">
                   <Image
