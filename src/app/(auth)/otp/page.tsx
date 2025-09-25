@@ -1,6 +1,6 @@
 'use client';
-import {useRouter, useSearchParams} from 'next/navigation';
-import {useState, useRef} from 'react';
+import {useRouter} from 'next/navigation';
+import {useState, useRef, useEffect} from 'react';
 import axios from 'axios';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
@@ -13,9 +13,18 @@ import Link from 'next/link';
 import WithSuspense from '@/utils/WithSuspense';
 
 export default function OtpPage() {
+  const [email, setEmail] = useState<string | null>(null);
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const email = searchParams.get('email');
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const emailFromQuery = params.get('email');
+    if (!emailFromQuery) {
+      router.push('/forgot-password');
+    } else {
+      setEmail(emailFromQuery);
+    }
+  }, [router]);
 
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [isSubmitting, setIsSubmitting] = useState(false);

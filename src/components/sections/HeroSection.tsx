@@ -27,7 +27,7 @@ const HeroSection = () => {
             />
 
             <button className="bg-[#3BA334] rounded-lg cursor-pointer shadow-[0_8px_16px_0_#39A4323D] hover:scale-105 transition-all duration-300 py-[10px] px-[26px] text-white text-base font-bold">
-              Get Started
+              Get Startedd
             </button>
           </div>
 

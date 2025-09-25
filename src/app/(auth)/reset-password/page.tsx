@@ -1,5 +1,5 @@
 'use client';
-import {useRouter, useSearchParams} from 'next/navigation';
+import {useRouter} from 'next/navigation';
 import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import axios from 'axios';
@@ -9,7 +9,7 @@ import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import {Visibility, VisibilityOff} from '@mui/icons-material';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {AiOutlineLoading3Quarters} from 'react-icons/ai';
 import {toast} from 'sonner';
 import Container from '@mui/material/Container';
@@ -20,9 +20,19 @@ import WithSuspense from '@/utils/WithSuspense';
 type resetPasswordFormData = z.infer<typeof resetPasswordSchema>;
 
 export default function RegisterPage() {
+  const [token, setToken] = useState<string | null>(null);
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const token = searchParams.get('token');
+
+  useEffect(() => {
+    // This runs only on client
+    const params = new URLSearchParams(window.location.search);
+    const tokenFromQuery = params.get('token');
+    if (!tokenFromQuery) {
+      router.push('/forgot-password');
+    } else {
+      setToken(tokenFromQuery);
+    }
+  }, [router]);
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
