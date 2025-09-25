@@ -60,7 +60,9 @@ export default function RegisterPage() {
 
       // console.log('[res]', res);
       if (res?.status === 201) {
-        router.push(`/otp?email=${res.data.data.email}`);
+        router.push(
+          `/otp?email=${res?.data?.data?.email}&otp=${res?.data?.data?.otp}`
+        );
       }
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

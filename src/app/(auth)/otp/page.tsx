@@ -13,11 +13,18 @@ import Link from 'next/link';
 import WithSuspense from '@/utils/WithSuspense';
 
 export default function OtpPage() {
+  const [otp, setOtp] = useState(['', '', '', '', '', '']);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const [email, setEmail] = useState<string | null>(null);
+  const [otpFromQuery, setOtpFromQuery] = useState<string | null>(null);
   const router = useRouter();
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
+    const otpFromParams = params.get('otp');
+    setOtpFromQuery(otpFromParams);
+
     const emailFromQuery = params.get('email');
     if (!emailFromQuery) {
       router.push('/forgot-password');
@@ -25,9 +32,6 @@ export default function OtpPage() {
       setEmail(emailFromQuery);
     }
   }, [router]);
-
-  const [otp, setOtp] = useState(['', '', '', '', '', '']);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Refs for auto-focus
   const inputRefs = useRef<Array<HTMLInputElement | null>>([]);
@@ -129,6 +133,13 @@ export default function OtpPage() {
                 <IoIosArrowBack /> Back
               </button>
             </Link>
+
+            <p>
+              <span className="font-bold">{otpFromQuery}</span> : OTP for demo
+              only. In production, it would be sent via email. Backend team
+              needs to fix email sending.
+            </p>
+
             <h3 className="mb-2 text-start">Please check your email!</h3>
             <p>
               We have emailed a 6-digit confirmation code to acb@domain, please

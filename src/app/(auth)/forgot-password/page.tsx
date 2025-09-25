@@ -42,9 +42,14 @@ export default function RegisterPage() {
         }
       );
 
-      console.log(res);
+      // console.log(res);
+
       if (res?.status === 201) {
-        router.push(`/forgot-password-otp?email=${data.email}`);
+        router.push(
+          `/forgot-password-otp?email=${data.email}&otp=${res?.data?.data?.otp}`
+        );
+
+        toast.error(res?.data?.message);
       }
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
