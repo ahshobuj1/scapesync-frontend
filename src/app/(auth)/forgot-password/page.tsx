@@ -4,7 +4,7 @@ import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import axios from 'axios';
 import z from 'zod';
-import {registerSchema} from '@/schema';
+import {forgotPasswordSchema} from '@/schema';
 import TextField from '@mui/material/TextField';
 import {AiOutlineLoading3Quarters} from 'react-icons/ai';
 import {toast} from 'sonner';
@@ -14,7 +14,7 @@ import logo from '@/assets/logo-scape.png';
 import {IoIosArrowBack} from 'react-icons/io';
 import Link from 'next/link';
 
-type RegisterFormData = z.infer<typeof registerSchema>;
+type forgotPasswordFormData = z.infer<typeof forgotPasswordSchema>;
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -24,24 +24,34 @@ export default function RegisterPage() {
     handleSubmit,
     formState: {errors, isSubmitting},
     setError,
-  } = useForm<RegisterFormData>({
-    resolver: zodResolver(registerSchema),
+  } = useForm<forgotPasswordFormData>({
+    resolver: zodResolver(forgotPasswordSchema),
   });
 
   // Submit handler
-  const onSubmit = async (data: RegisterFormData) => {
+  const onSubmit = async (data: forgotPasswordFormData) => {
     try {
       const formData = new FormData();
-
       formData.append('email', data.email);
 
-      await axios.post('/auth/register', formData, {
-        headers: {'Content-Type': 'multipart/form-data'},
-      });
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/forgot-password`,
+        formData,
+        {
+          headers: {'Content-Type': 'multipart/form-data'},
+        }
+      );
 
-      router.push('/');
+      console.log(res);
+      if (res?.status === 201) {
+        router.push(`/forgot-password-otp?email=${data.email}`);
+      }
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
+      const errorMessage = err.response && err.response.data?.message;
+      toast.error(errorMessage);
+
       if (err.response && err.response.data?.message) {
         setError('email', {
           type: 'manual',
@@ -101,7 +111,9 @@ export default function RegisterPage() {
           />
 
           {/* Button */}
+
           <button
+            type="submit"
             disabled={isSubmitting}
             className="bg-[#49AE44] py-3 text-white text-base font-bold w-full rounded-lg cursor-pointer shadow-[0_8px_16px_0_#39A4323D] hover:scale-105 transition-all duration-300 flex justify-center items-center">
             {isSubmitting ? (

@@ -1,10 +1,10 @@
 'use client';
-import {useRouter} from 'next/navigation';
+import {useRouter, useSearchParams} from 'next/navigation';
 import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import axios from 'axios';
 import z from 'zod';
-import {registerSchema} from '@/schema';
+import {resetPasswordSchema} from '@/schema';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -16,10 +16,12 @@ import Container from '@mui/material/Container';
 import Image from 'next/image';
 import logo from '@/assets/logo-scape.png';
 
-type RegisterFormData = z.infer<typeof registerSchema>;
+type resetPasswordFormData = z.infer<typeof resetPasswordSchema>;
 
 export default function RegisterPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const token = searchParams.get('token');
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
@@ -29,25 +31,40 @@ export default function RegisterPage() {
     handleSubmit,
     formState: {errors, isSubmitting},
     setError,
-  } = useForm<RegisterFormData>({
-    resolver: zodResolver(registerSchema),
+  } = useForm<resetPasswordFormData>({
+    resolver: zodResolver(resetPasswordSchema),
   });
 
   //  Submit handler
-  const onSubmit = async (data: RegisterFormData) => {
+  const onSubmit = async (data: resetPasswordFormData) => {
     try {
       const formData = new FormData();
       formData.append('password', data.password);
+      formData.append('password_confirmation', data.password_confirmation);
+      formData.append('token', token || '');
 
-      await axios.post('/auth/register', formData, {
-        headers: {'Content-Type': 'multipart/form-data'},
-      });
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/reset-password`,
+        formData,
+        {
+          headers: {'Content-Type': 'multipart/form-data'},
+        }
+      );
 
-      router.push('/otp');
+      console.log('res', res);
+
+      if (res?.data?.status === 200) {
+        toast.success(res?.data?.message);
+        router.push('/password-changed');
+      }
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      if (err.response && err.response.data?.message) {
-        setError('email', {
+      if (err.response?.data?.message) {
+        const message = err.response?.data?.message;
+        toast.error(message);
+
+        setError('password', {
           type: 'manual',
           message: err.response.data.message,
         });
@@ -110,12 +127,12 @@ export default function RegisterPage() {
 
           {/* Confirm Password */}
           <TextField
-            {...register('confirmPassword')}
+            {...register('password_confirmation')}
             label="Confirm Password"
             type={showConfirm ? 'text' : 'password'}
             fullWidth
-            error={!!errors.confirmPassword}
-            helperText={errors.confirmPassword?.message}
+            error={!!errors.password_confirmation}
+            helperText={errors.password_confirmation?.message}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
