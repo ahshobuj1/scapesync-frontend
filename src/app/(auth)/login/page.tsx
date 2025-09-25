@@ -4,7 +4,7 @@ import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import axios from 'axios';
 import z from 'zod';
-import {registerSchema} from '@/schema';
+import {loginSchema} from '@/schema';
 import TextField from '@mui/material/TextField';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -20,7 +20,7 @@ import Container from '@mui/material/Container';
 import Image from 'next/image';
 import logo from '@/assets/logo-scape.png';
 
-type RegisterFormData = z.infer<typeof registerSchema>;
+type LoginFormData = z.infer<typeof loginSchema>;
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -31,26 +31,41 @@ export default function RegisterPage() {
     handleSubmit,
     formState: {errors, isSubmitting},
     setError,
-  } = useForm<RegisterFormData>({
-    resolver: zodResolver(registerSchema),
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
   });
 
   // Submit handler
-  const onSubmit = async (data: RegisterFormData) => {
+  const onSubmit = async (data: LoginFormData) => {
     try {
       const formData = new FormData();
 
       formData.append('email', data.email);
       formData.append('password', data.password);
-      formData.append('rememberMe', String(data.rememberMe || false));
+      formData.append('terms', String(data.terms || false));
 
-      await axios.post('/auth/register', formData, {
-        headers: {'Content-Type': 'multipart/form-data'},
-      });
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/login`,
+        formData,
+        {
+          headers: {'Content-Type': 'multipart/form-data'},
+        }
+      );
 
-      router.push('/');
+      console.log('res', res);
+
+      if (res?.status === 200) {
+        toast.success(res?.data?.message);
+
+        localStorage.setItem('token', res.data.token);
+        router.push('/');
+      }
+
+      // router.push('/');
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
+      const errorMessage = err.response && err.response.data?.message;
+      toast.error(`${errorMessage} Enter correct email and password!`);
       if (err.response && err.response.data?.message) {
         setError('email', {
           type: 'manual',
@@ -137,7 +152,7 @@ export default function RegisterPage() {
               <FormControlLabel
                 control={
                   <Checkbox
-                    {...register('rememberMe')}
+                    {...register('terms')}
                     sx={{
                       color: '#49AE44',
                       '&.Mui-checked': {
@@ -161,6 +176,7 @@ export default function RegisterPage() {
           {/* Button */}
           <button
             disabled={isSubmitting}
+            type="submit"
             className="bg-[#49AE44] py-3 text-white text-base font-bold w-full rounded-lg cursor-pointer shadow-[0_8px_16px_0_#39A4323D] hover:scale-105 transition-all duration-300 flex justify-center items-center">
             {isSubmitting ? (
               <span className="flex gap-2 items-center">
