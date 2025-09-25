@@ -32,33 +32,32 @@ const HeroSection = () => {
           </div>
 
           {/* Hero */}
-
-          <div className="grid grid-cols-2 justify-between items-center">
-            <div className="max-w-[655px] relative">
+          <div className="grid grid-cols-1 lg:grid-cols-2 justify-between items-center">
+            <div className="max-w-[655px] relative mt-28 lg:mt-0">
               <Image
                 src={vectorKingImg}
                 width={130}
                 height={134}
                 alt="hero phone logo"
-                className="bg-cover bg-center absolute -top-16 left-[210px]"
+                className="bg-cover bg-center absolute -top-16 left-[130px] lg:left-[210px]"
               />
               <Image
                 src={frameImg}
                 width={240}
                 height={11}
                 alt="hero phone logo"
-                className="bg-cover bg-center absolute top-34 left-[220px] -z-1"
+                className="bg-cover bg-center absolute top-24 lg:top-34 left-[80px] lg:left-[220px] -z-1"
               />
-              <h2 className="text-7xl font-bold text-[#212B36] mb-4">
+              <h2 className="text-5xl text-center lg:text-start lg:text-7xl font-bold text-[#212B36] mb-4">
                 All Your Jobs One Smart App
               </h2>
-              <p>
+              <p className="text-center lg:text-start">
                 Built for business owners, employees, and clients streamline job
                 scheduling, service tracking, and team management in one
                 powerful app.
               </p>
 
-              <div className="mt-16 flex gap-[18px]">
+              <div className="mt-12 lg:mt-16 flex justify-center lg:justify-start gap-[18px]">
                 <Image
                   src={playStore}
                   height={50}
@@ -71,14 +70,14 @@ const HeroSection = () => {
             </div>
 
             <div
-              className="bg-cover bg-center"
+              className="bg-cover bg-center lg:order-2"
               style={{backgroundImage: `url(${bgMobileImage.src})`}}>
               <Image
                 src={heroPhone}
                 height={656}
                 width={720}
                 alt="hero phone logo"
-                className="bg-cover bg-center"
+                className="bg-cover bg-center lg:mb-0"
               />
             </div>
           </div>

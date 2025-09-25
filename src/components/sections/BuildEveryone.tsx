@@ -26,34 +26,47 @@ const BuildEveryone = () => {
           width={240}
           height={11}
           alt="hero phone logo"
-          className="bg-cover bg-center absolute top-11 left-[48%] -z-1"
+          className="bg-cover bg-center absolute top-7 lg:top-11 left-[16%] lg:left-[48%] -z-1"
         />
         <Image
           src={frame3Img}
           width={221}
           height={124}
           alt="hero phone logo"
-          className="bg-cover bg-center absolute top-24 left-20"
+          className="bg-cover bg-center absolute top-24 left-0 hidden lg:block"
         />
         <Image
           src={middleFrame}
           width={341}
           height={1253}
           alt="hero phone logo"
-          className="bg-cover bg-center absolute top-28 left-[34%]"
+          className="bg-cover bg-center absolute top-28 left-0"
         />
         <Image
           src={rightFrame}
           width={250}
           height={732}
           alt="hero phone logo"
-          className="bg-cover bg-center absolute top-24 -right-24"
+          className="bg-cover bg-center absolute top-24 right-5"
         />
       </div>
 
-      <div className="space-y-5 mt-24">
+      <div className="space-y-5 mt-10 lg:mt-24">
         {/* content 1 */}
-        <div className="grid grid-cols-2 justify-between items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 justify-between items-center">
+          {/* Image */}
+          <div
+            className="bg-cover bg-center lg:order-2"
+            style={{backgroundImage: `url(${bgImage.src})`}}>
+            <Image
+              src={serviceImage1}
+              height={516}
+              width={610}
+              alt="service phone logo"
+              className="bg-contain mb-5 lg:mb-0"
+            />
+          </div>
+
           {/* Service */}
           <BuildEveryoneContent
             name="Users"
@@ -64,23 +77,10 @@ const BuildEveryone = () => {
             col2="Book services in seconds"
             col3="Book services in seconds"
           />
-
-          {/* Image */}
-          <div
-            className="bg-cover bg-center"
-            style={{backgroundImage: `url(${bgImage.src})`}}>
-            <Image
-              src={serviceImage1}
-              height={516}
-              width={610}
-              alt="service phone logo"
-              className="bg-contain"
-            />
-          </div>
         </div>
 
         {/* content 2 */}
-        <div className="grid grid-cols-2 justify-between items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 justify-between items-center">
           {/* Image */}
           <div
             className="bg-cover bg-center"
@@ -90,7 +90,7 @@ const BuildEveryone = () => {
               height={516}
               width={610}
               alt="service phone logo"
-              className="bg-contain"
+              className="bg-contain mb-5 lg:mb-0"
             />
           </div>
 
@@ -107,7 +107,20 @@ const BuildEveryone = () => {
         </div>
 
         {/* content 3 */}
-        <div className="grid grid-cols-2 justify-between items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 justify-between items-center">
+          {/* Image */}
+          <div
+            className="bg-cover bg-center lg:order-2"
+            style={{backgroundImage: `url(${bgImage.src})`}}>
+            <Image
+              src={serviceImage3}
+              height={516}
+              width={610}
+              alt="service phone logo"
+              className="bg-contain mb-5 lg:mb-0"
+            />
+          </div>
+
           {/* Service */}
           <BuildEveryoneContent
             name="Users"
@@ -118,19 +131,6 @@ const BuildEveryone = () => {
             col2="Book services in seconds"
             col3="Book services in seconds"
           />
-
-          {/* Image */}
-          <div
-            className="bg-cover bg-center"
-            style={{backgroundImage: `url(${bgImage.src})`}}>
-            <Image
-              src={serviceImage3}
-              height={516}
-              width={610}
-              alt="service phone logo"
-              className="bg-contain"
-            />
-          </div>
         </div>
       </div>
     </Container>

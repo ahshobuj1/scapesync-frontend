@@ -14,6 +14,9 @@ const publicSans = Public_Sans({
 export const metadata: Metadata = {
   title: 'ScapeSync',
   description: 'ScapeSync is a large mobile company.',
+  icons: {
+    icon: 'favicon-logo.png',
+  },
 };
 
 export default function RootLayout({
