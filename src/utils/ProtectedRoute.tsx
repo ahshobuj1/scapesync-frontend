@@ -1,4 +1,5 @@
 'use client';
+
 import {useEffect, useState} from 'react';
 import {useRouter} from 'next/navigation';
 
@@ -14,7 +15,7 @@ export default function ProtectedRoute({
     const token = localStorage.getItem('token');
 
     if (!token) {
-      router.push('/auth/login');
+      router.push('/login');
     } else {
       setLoading(false);
     }
@@ -26,10 +27,3 @@ export default function ProtectedRoute({
 
   return <>{children}</>;
 }
-
-// <ProtectedRoute>
-//   <div className="p-10">
-//     <h1 className="text-2xl font-bold">Welcome to Home Page 🚀</h1>
-//     <p>This page is only visible to authenticated users.</p>
-//   </div>
-// </ProtectedRoute>;
