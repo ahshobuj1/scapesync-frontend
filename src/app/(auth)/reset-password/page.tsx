@@ -6,16 +6,12 @@ import axios from 'axios';
 import z from 'zod';
 import {registerSchema} from '@/schema';
 import TextField from '@mui/material/TextField';
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import {Visibility, VisibilityOff} from '@mui/icons-material';
 import {useState} from 'react';
 import {AiOutlineLoading3Quarters} from 'react-icons/ai';
 import {toast} from 'sonner';
-import Link from 'next/link';
-import {FcGoogle} from 'react-icons/fc';
 import Container from '@mui/material/Container';
 import Image from 'next/image';
 import logo from '@/assets/logo-scape.png';
@@ -24,7 +20,9 @@ type RegisterFormData = z.infer<typeof registerSchema>;
 
 export default function RegisterPage() {
   const router = useRouter();
+
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   const {
     register,
@@ -35,20 +33,17 @@ export default function RegisterPage() {
     resolver: zodResolver(registerSchema),
   });
 
-  // Submit handler
+  //  Submit handler
   const onSubmit = async (data: RegisterFormData) => {
     try {
       const formData = new FormData();
-
-      formData.append('email', data.email);
       formData.append('password', data.password);
-      formData.append('rememberMe', String(data.rememberMe || false));
 
       await axios.post('/auth/register', formData, {
         headers: {'Content-Type': 'multipart/form-data'},
       });
 
-      router.push('/');
+      router.push('/otp');
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       if (err.response && err.response.data?.message) {
@@ -75,36 +70,18 @@ export default function RegisterPage() {
       </div>
       <div className="max-w-[480px] mx-auto flex flex-col justify-center items-center min-h-screen">
         <div className="flex flex-col justify-center items-center mb-6">
-          <h3 className="text-2xl mb-2">Welcome to ScapeSync</h3>
-          <p>Please share your login details so you can access the website.</p>
+          <h3 className="text-2xl mb-2">Enter Your Password</h3>
+          <p>
+            Please enter the email address associated with your account, and we
+            will email you a link to reset your password.
+          </p>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="w-full">
-          {/* Email */}
-          <TextField
-            {...register('email')}
-            label="Email"
-            type="email"
-            fullWidth
-            error={!!errors.email}
-            helperText={errors.email?.message}
-            sx={{
-              borderColor: '#919EAB52',
-              '& .MuiOutlinedInput-root': {
-                '&.Mui-focused fieldset': {
-                  borderColor: '#919EAB52',
-                },
-              },
-              '& label.Mui-focused': {
-                color: '#919EAB',
-              },
-            }}
-          />
-
           {/* Password */}
           <TextField
             {...register('password')}
-            label="Password"
+            label="New Password"
             type={showPassword ? 'text' : 'password'}
             fullWidth
             error={!!errors.password}
@@ -131,33 +108,36 @@ export default function RegisterPage() {
             }}
           />
 
-          <div className="flex justify-between items-center">
-            {/* Remember Me */}
-            <div>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    {...register('rememberMe')}
-                    sx={{
-                      color: '#49AE44',
-                      '&.Mui-checked': {
-                        color: '#49AE44',
-                      },
-                    }}
-                  />
-                }
-                label="Remember me"
-              />
-            </div>
+          {/* Confirm Password */}
+          <TextField
+            {...register('confirmPassword')}
+            label="Confirm Password"
+            type={showConfirm ? 'text' : 'password'}
+            fullWidth
+            error={!!errors.confirmPassword}
+            helperText={errors.confirmPassword?.message}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={() => setShowConfirm(!showConfirm)}>
+                    {showConfirm ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+            sx={{
+              borderColor: '#919EAB52',
+              '& .MuiOutlinedInput-root': {
+                '&.Mui-focused fieldset': {
+                  borderColor: '#919EAB52',
+                },
+              },
+              '& label.Mui-focused': {
+                color: '#919EAB',
+              },
+            }}
+          />
 
-            <div>
-              <Link
-                className="text-[#49AE44] font-semibold text-sm"
-                href={'/forgot-password'}>
-                Forgot Password?
-              </Link>
-            </div>
-          </div>
           {/* Button */}
           <button
             disabled={isSubmitting}
@@ -168,68 +148,54 @@ export default function RegisterPage() {
                 Loading...
               </span>
             ) : (
-              'Create Account'
+              'Change Password'
             )}
           </button>
         </form>
-
-        <div>
-          <div className="mt-12 mb-6 flex justify-between items-center">
-            <div className="border-[1px] border-[#919EAB3D] min-w-[232px] h-[1px]"></div>
-            <p className="px-2">OR</p>
-            <div className="border-[1px] border-[#919EAB3D] min-w-[232px] h-[1px]"></div>
-          </div>
-
-          <div>
-            <button className="py-3 text-base font-bold w-full rounded-lg cursor-pointer hover:scale-105 transition-all duration-300 flex justify-center items-center gap-2 text-[#637381] border-[1px] border-[#919EAB52] mb-8 ">
-              <FcGoogle className="text-2xl" /> Continue with Google
-            </button>
-
-            <h5 className="text-sm font-normal text-center mb-20">
-              Don not have an account?{' '}
-              <Link href="/register" className="text-[#49AE44] font-semibold">
-                Get started
-              </Link>
-            </h5>
-          </div>
-        </div>
       </div>
     </Container>
   );
 }
 
 // 'use client';
-// import {useRouter} from 'next/navigation';
+// import {useRouter, useSearchParams} from 'next/navigation';
 // import {useState} from 'react';
 // import axios from 'axios';
 
-// export default function LoginPage() {
+// export default function ResetPasswordPage() {
 //   const router = useRouter();
-//   const [form, setForm] = useState({email: '', password: ''});
+//   const searchParams = useSearchParams();
+//   const email = searchParams.get('email');
+
+//   const [form, setForm] = useState({password: '', confirm: ''});
 
 //   const handleSubmit = async (e: React.FormEvent) => {
 //     e.preventDefault();
-//     await axios.post('/auth/login', form); // backend API
-//     router.push(`/auth/otp?email=${form.email}`);
+//     if (form.password !== form.confirm) return alert('Passwords do not match');
+//     await axios.post('/auth/reset-password', {
+//       email,
+//       password: form.password,
+//     });
+//     router.push('/auth/login');
 //   };
 
 //   return (
 //     <form onSubmit={handleSubmit} className="max-w-md mx-auto mt-20 space-y-4">
-//       <h2 className="text-xl">Login</h2>
-//       <input
-//         type="email"
-//         placeholder="Email"
-//         className="border p-2 w-full"
-//         onChange={(e) => setForm({...form, email: e.target.value})}
-//       />
+//       <h2 className="text-xl">Reset Password</h2>
 //       <input
 //         type="password"
-//         placeholder="Password"
+//         placeholder="New Password"
 //         className="border p-2 w-full"
 //         onChange={(e) => setForm({...form, password: e.target.value})}
 //       />
-//       <button className="bg-green-600 text-white px-4 py-2 rounded">
-//         Login
+//       <input
+//         type="password"
+//         placeholder="Confirm Password"
+//         className="border p-2 w-full"
+//         onChange={(e) => setForm({...form, confirm: e.target.value})}
+//       />
+//       <button className="bg-blue-700 text-white px-4 py-2 rounded">
+//         Reset Password
 //       </button>
 //     </form>
 //   );

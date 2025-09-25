@@ -25,6 +25,11 @@ const items: AccordionItem[] = [
     content:
       'Yes! We offer a free plan for individuals and small teams. Paid plans unlock more features for scaling businesses.',
   },
+  {
+    title: 'Did it created by next.js 15?',
+    content:
+      'Yes! We offer a free plan for individuals and small teams. Paid plans unlock more features for scaling businesses.',
+  },
 ];
 
 const FAQ = () => {
