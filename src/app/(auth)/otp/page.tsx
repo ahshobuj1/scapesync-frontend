@@ -10,6 +10,7 @@ import {AiOutlineLoading3Quarters} from 'react-icons/ai';
 import {toast} from 'sonner';
 import {IoIosArrowBack} from 'react-icons/io';
 import Link from 'next/link';
+import WithSuspense from '@/utils/WithSuspense';
 
 export default function OtpPage() {
   const router = useRouter();
@@ -98,82 +99,84 @@ export default function OtpPage() {
   };
 
   return (
-    <Container>
-      {/* Logo */}
-      <div>
-        <Image
-          src={logo}
-          height={60}
-          width={147}
-          alt="logo ScapeSync"
-          className="mt-6"
-        />
-      </div>
-
-      <div className="max-w-[480px] mx-auto flex flex-col justify-center items-center min-h-screen">
-        {/* Heading */}
-        <div className="mb-6">
-          <Link href={'/register'}>
-            <button className="p-1 flex items-center gap-2 mb-6 text-[#49AE44] text-sm font-bold cursor-pointer">
-              <IoIosArrowBack /> Back
-            </button>
-          </Link>
-          <h3 className="mb-2 text-start">Please check your email!</h3>
-          <p>
-            We have emailed a 6-digit confirmation code to acb@domain, please
-            enter the code in below box to verify your email.
-          </p>
+    <WithSuspense>
+      <Container>
+        {/* Logo */}
+        <div>
+          <Image
+            src={logo}
+            height={60}
+            width={147}
+            alt="logo ScapeSync"
+            className="mt-6"
+          />
         </div>
 
-        <form onSubmit={handleSubmit} className="w-full flex flex-col gap-6">
-          {/* OTP inputs */}
-          <div className="flex justify-between gap-2 mx-auto mt-10 mb-6">
-            {otp.map((digit, idx) => (
-              <TextField
-                key={idx}
-                inputRef={(el) => (inputRefs.current[idx] = el)}
-                value={digit}
-                onChange={(e) => handleChange(idx, e.target.value)}
-                inputProps={{maxLength: 1, className: 'text-center text-xl'}}
-                sx={{
-                  width: '56px',
-                  '& .MuiOutlinedInput-root': {
-                    '&.Mui-focused fieldset': {
-                      borderColor: '#919EAB52',
-                    },
-                  },
-                }}
-              />
-            ))}
+        <div className="max-w-[480px] mx-auto flex flex-col justify-center items-center min-h-screen">
+          {/* Heading */}
+          <div className="mb-6">
+            <Link href={'/register'}>
+              <button className="p-1 flex items-center gap-2 mb-6 text-[#49AE44] text-sm font-bold cursor-pointer">
+                <IoIosArrowBack /> Back
+              </button>
+            </Link>
+            <h3 className="mb-2 text-start">Please check your email!</h3>
+            <p>
+              We have emailed a 6-digit confirmation code to acb@domain, please
+              enter the code in below box to verify your email.
+            </p>
           </div>
 
-          {/* Submit Button */}
-          <button
-            disabled={isSubmitting}
-            className="bg-[#49AE44] py-3 text-white text-base font-bold w-full rounded-lg cursor-pointer shadow-[0_8px_16px_0_#39A4323D] hover:scale-105 transition-all duration-300 flex justify-center items-center">
-            {isSubmitting ? (
-              <span className="flex gap-2 items-center">
-                <AiOutlineLoading3Quarters className="animate-spin" />{' '}
-                Verifying...
-              </span>
-            ) : (
-              'Verify OTP'
-            )}
-          </button>
+          <form onSubmit={handleSubmit} className="w-full flex flex-col gap-6">
+            {/* OTP inputs */}
+            <div className="flex justify-between gap-2 mx-auto mt-10 mb-6">
+              {otp.map((digit, idx) => (
+                <TextField
+                  key={idx}
+                  inputRef={(el) => (inputRefs.current[idx] = el)}
+                  value={digit}
+                  onChange={(e) => handleChange(idx, e.target.value)}
+                  inputProps={{maxLength: 1, className: 'text-center text-xl'}}
+                  sx={{
+                    width: '56px',
+                    '& .MuiOutlinedInput-root': {
+                      '&.Mui-focused fieldset': {
+                        borderColor: '#919EAB52',
+                      },
+                    },
+                  }}
+                />
+              ))}
+            </div>
 
-          {/* Resend */}
-
-          <h5 className="text-center mx-auto">
-            Don not have a code?{' '}
+            {/* Submit Button */}
             <button
-              type="button"
-              onClick={handleResend}
-              className="text-sm text-[#49AE44] cursor-pointer">
-              Resend OTP
+              disabled={isSubmitting}
+              className="bg-[#49AE44] py-3 text-white text-base font-bold w-full rounded-lg cursor-pointer shadow-[0_8px_16px_0_#39A4323D] hover:scale-105 transition-all duration-300 flex justify-center items-center">
+              {isSubmitting ? (
+                <span className="flex gap-2 items-center">
+                  <AiOutlineLoading3Quarters className="animate-spin" />{' '}
+                  Verifying...
+                </span>
+              ) : (
+                'Verify OTP'
+              )}
             </button>
-          </h5>
-        </form>
-      </div>
-    </Container>
+
+            {/* Resend */}
+
+            <h5 className="text-center mx-auto">
+              Don not have a code?{' '}
+              <button
+                type="button"
+                onClick={handleResend}
+                className="text-sm text-[#49AE44] cursor-pointer">
+                Resend OTP
+              </button>
+            </h5>
+          </form>
+        </div>
+      </Container>
+    </WithSuspense>
   );
 }

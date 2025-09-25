@@ -1,5 +1,5 @@
 'use client';
-import {useRouter} from 'next/navigation';
+
 import Container from '@mui/material/Container';
 import Image from 'next/image';
 import logo from '@/assets/logo-scape.png';
@@ -7,8 +7,6 @@ import Link from 'next/link';
 import groupAuth from '@/assets/images/icons/group-auth.png';
 
 export default function OtpPage() {
-  const router = useRouter();
-
   return (
     <Container>
       {/* Logo */}
