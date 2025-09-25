@@ -1,5 +1,6 @@
 'use client';
-import {useRouter, useSearchParams} from 'next/navigation';
+
+import {useRouter} from 'next/navigation';
 import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import axios from 'axios';
@@ -24,8 +25,6 @@ type RegisterFormData = z.infer<typeof registerSchema>;
 
 export default function RegisterPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const role = searchParams.get('role');
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
@@ -39,22 +38,31 @@ export default function RegisterPage() {
     resolver: zodResolver(registerSchema),
   });
 
-  // ✅ Submit handler
+  // Submit handler
   const onSubmit = async (data: RegisterFormData) => {
+    console.log('[data]', data);
     try {
       const formData = new FormData();
-      formData.append('firstName', data.firstName);
-      formData.append('lastName', data.lastName);
+      formData.append('first_name', data.first_name);
+      formData.append('last_name', data.last_name);
       formData.append('email', data.email);
       formData.append('password', data.password);
-      formData.append('role', role || 'client');
-      formData.append('rememberMe', String(data.rememberMe || false));
+      formData.append('password_confirmation', data.password_confirmation);
+      formData.append('terms', String(data.terms || false));
 
-      await axios.post('/auth/register', formData, {
-        headers: {'Content-Type': 'multipart/form-data'},
-      });
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/register`,
+        formData,
+        {
+          headers: {'Content-Type': 'multipart/form-data'},
+        }
+      );
 
-      router.push('/otp');
+      // console.log('[res]', res);
+      if (res?.status === 201) {
+        router.push(`/otp?email=${res.data.data.email}`);
+      }
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       if (err.response && err.response.data?.message) {
@@ -89,11 +97,11 @@ export default function RegisterPage() {
           {/* First + Last Name */}
           <div className="flex gap-4 justify-between">
             <TextField
-              {...register('firstName')}
+              {...register('first_name')}
               label="First Name"
               fullWidth
-              error={!!errors.firstName}
-              helperText={errors.firstName?.message}
+              error={!!errors.first_name}
+              helperText={errors.first_name?.message}
               sx={{
                 minWidth: '232px',
                 borderColor: '#919EAB52',
@@ -108,11 +116,11 @@ export default function RegisterPage() {
               }}
             />
             <TextField
-              {...register('lastName')}
+              {...register('last_name')}
               label="Last Name"
               fullWidth
-              error={!!errors.lastName}
-              helperText={errors.lastName?.message}
+              error={!!errors.last_name}
+              helperText={errors.last_name?.message}
               sx={{
                 minWidth: '232px',
                 borderColor: '#919EAB52',
@@ -180,12 +188,12 @@ export default function RegisterPage() {
 
           {/* Confirm Password */}
           <TextField
-            {...register('confirmPassword')}
+            {...register('password_confirmation')}
             label="Confirm Password"
             type={showConfirm ? 'text' : 'password'}
             fullWidth
-            error={!!errors.confirmPassword}
-            helperText={errors.confirmPassword?.message}
+            error={!!errors.password_confirmation}
+            helperText={errors.password_confirmation?.message}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -212,7 +220,7 @@ export default function RegisterPage() {
           <FormControlLabel
             control={
               <Checkbox
-                {...register('rememberMe')}
+                {...register('terms')}
                 sx={{
                   color: '#49AE44',
                   '&.Mui-checked': {

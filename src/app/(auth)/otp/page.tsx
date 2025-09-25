@@ -37,6 +37,7 @@ export default function OtpPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (otp.some((digit) => digit === '')) {
       toast.error('Please fill all OTP fields');
       return;
@@ -44,12 +45,27 @@ export default function OtpPage() {
 
     setIsSubmitting(true);
     try {
-      const res = await axios.post('/auth/verify-otp', {
-        email,
-        otp: otp.join(''),
-      });
-      localStorage.setItem('token', res.data.token);
-      router.push('/home');
+      const formData = new FormData();
+      formData.append('email', email || '');
+      formData.append('otp', otp.join(''));
+
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/verify_otp`,
+        formData,
+        {
+          headers: {'Content-Type': 'multipart/form-data'},
+        }
+      );
+
+      // console.log('[res]', res);
+
+      if (res?.status === 200) {
+        toast.success(res?.data?.message);
+
+        localStorage.setItem('token', res.data.token);
+        router.push('/account-created');
+      }
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       toast.error(err.response?.data?.message || 'OTP verification failed');
@@ -60,8 +76,22 @@ export default function OtpPage() {
 
   const handleResend = async () => {
     try {
-      await axios.post('/auth/resend-otp', {email});
-      toast.success('OTP resent successfully');
+      const formData = new FormData();
+      formData.append('email', email || '');
+
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/resend_otp`,
+        formData,
+        {
+          headers: {'Content-Type': 'multipart/form-data'},
+        }
+      );
+
+      if (res?.status === 201) {
+        toast.success(res?.data?.message);
+      }
+
+      console.log(res, 'resend');
     } catch {
       toast.error('Failed to resend OTP');
     }
