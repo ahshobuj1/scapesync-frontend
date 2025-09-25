@@ -89,9 +89,11 @@ export default function RegisterPage() {
         />
       </div>
       <div className="max-w-[480px] mx-auto flex flex-col justify-center items-center min-h-screen">
-        <div className="flex flex-col justify-center items-center mb-6">
+        <div className="flex flex-col justify-center items-center mb-6 mt-5 lg:mt-0">
           <h3 className="text-2xl mb-2">Welcome to ScapeSync</h3>
-          <p>Please share your login details so you can access the website.</p>
+          <p className="text-center md:text-start">
+            Please share your login details so you can access the website.
+          </p>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="w-full">
@@ -191,9 +193,9 @@ export default function RegisterPage() {
 
         <div>
           <div className="mt-12 mb-6 flex justify-between items-center">
-            <div className="border-[1px] border-[#919EAB3D] min-w-[232px] h-[1px]"></div>
+            <div className="border-[1px] border-[#919EAB3D] min-w-36 lg:min-w-[232px] h-[1px]"></div>
             <p className="px-2">OR</p>
-            <div className="border-[1px] border-[#919EAB3D] min-w-[232px] h-[1px]"></div>
+            <div className="border-[1px] border-[#919EAB3D] min-w-36 lg:min-w-[232px] h-[1px]"></div>
           </div>
 
           <div>
@@ -213,40 +215,3 @@ export default function RegisterPage() {
     </Container>
   );
 }
-
-// 'use client';
-// import {useRouter} from 'next/navigation';
-// import {useState} from 'react';
-// import axios from 'axios';
-
-// export default function LoginPage() {
-//   const router = useRouter();
-//   const [form, setForm] = useState({email: '', password: ''});
-
-//   const handleSubmit = async (e: React.FormEvent) => {
-//     e.preventDefault();
-//     await axios.post('/auth/login', form); // backend API
-//     router.push(`/auth/otp?email=${form.email}`);
-//   };
-
-//   return (
-//     <form onSubmit={handleSubmit} className="max-w-md mx-auto mt-20 space-y-4">
-//       <h2 className="text-xl">Login</h2>
-//       <input
-//         type="email"
-//         placeholder="Email"
-//         className="border p-2 w-full"
-//         onChange={(e) => setForm({...form, email: e.target.value})}
-//       />
-//       <input
-//         type="password"
-//         placeholder="Password"
-//         className="border p-2 w-full"
-//         onChange={(e) => setForm({...form, password: e.target.value})}
-//       />
-//       <button className="bg-green-600 text-white px-4 py-2 rounded">
-//         Login
-//       </button>
-//     </form>
-//   );
-// }

@@ -100,7 +100,7 @@ export default function RegisterPage() {
         <div className="max-w-[480px] mx-auto flex flex-col justify-center items-center min-h-screen">
           <div className="flex flex-col justify-center items-center mb-6">
             <h3 className="text-2xl mb-2">Enter Your Password</h3>
-            <p>
+            <p className="text-center md:text-start">
               Please enter the email address associated with your account, and
               we will email you a link to reset your password.
             </p>

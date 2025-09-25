@@ -45,10 +45,7 @@ export default function RegisterPage() {
       // console.log(res);
 
       if (res?.status === 201) {
-        router.push(
-          `/forgot-password-otp?email=${data.email}&otp=${res?.data?.data?.otp}`
-        );
-
+        router.push(`/forgot-password-otp?email=${data.email}`);
         toast.error(res?.data?.message);
       }
 

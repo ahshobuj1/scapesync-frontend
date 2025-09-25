@@ -35,7 +35,7 @@ const Features = () => {
 
   return (
     <Container>
-      <div className="py-16 lg:py-24">
+      <div className="pt-16 lg:pt-24">
         {/* Section Title */}
         <div className="text-center mb-12 lg:mb-16">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#212B36] mb-4">

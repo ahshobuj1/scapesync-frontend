@@ -29,7 +29,7 @@ export default function OtpPage() {
               width={332}
               height={328}
               alt="logo ScapeSync"
-              className="mb-9"
+              className="mb-9 mt-4"
             />
           </div>
           <h3 className="mb-4">Password Changed Successful</h3>

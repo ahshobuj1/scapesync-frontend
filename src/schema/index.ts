@@ -10,7 +10,7 @@ export const registerSchema = z
     terms: z.boolean().optional(),
   })
   .refine((data) => data.password === data.password_confirmation, {
-    path: ['confirmPassword'],
+    path: ['password_confirmation'],
     message: 'Passwords do not match',
   });
 

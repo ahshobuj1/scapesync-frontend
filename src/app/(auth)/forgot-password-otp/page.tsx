@@ -14,7 +14,7 @@ import Link from 'next/link';
 
 export default function OtpPage() {
   const [email, setEmail] = useState<string | null>(null);
-  const [otpFromQuery, setOtpFromQuery] = useState<string | null>(null);
+  // const [otpFromQuery, setOtpFromQuery] = useState<string | null>(null);
 
   const router = useRouter();
   // const searchParams = useSearchParams();
@@ -22,8 +22,8 @@ export default function OtpPage() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const otpFromParams = params.get('otp');
-    setOtpFromQuery(otpFromParams);
+    // const otpFromParams = params.get('otp');
+    // setOtpFromQuery(otpFromParams);
 
     const emailFromQuery = params.get('email');
     if (!emailFromQuery) {
@@ -134,11 +134,11 @@ export default function OtpPage() {
             </button>
           </Link>
 
-          <p>
+          {/* <p>
             <span className="font-bold">{otpFromQuery}</span> : OTP for demo
             only. In production, it would be sent via email. Backend team needs
             to fix email sending.
-          </p>
+          </p> */}
 
           <h3 className="mb-2 text-start">Please check your email!</h3>
           <p>
@@ -149,7 +149,7 @@ export default function OtpPage() {
 
         <form onSubmit={handleSubmit} className="w-full flex flex-col gap-6">
           {/* OTP inputs */}
-          <div className="flex justify-between gap-2 mx-auto mt-10 mb-6">
+          <div className="flex justify-between gap-2 mx-auto mt-4 md:mt-10 mb-0 md:mb-6">
             {otp.map((digit, idx) => (
               <TextField
                 key={idx}
@@ -158,7 +158,10 @@ export default function OtpPage() {
                 onChange={(e) => handleChange(idx, e.target.value)}
                 inputProps={{maxLength: 1, className: 'text-center text-xl'}}
                 sx={{
-                  width: '56px',
+                  width: {
+                    xs: '44px',
+                    md: '56px',
+                  },
                   '& .MuiOutlinedInput-root': {
                     '&.Mui-focused fieldset': {
                       borderColor: '#919EAB52',

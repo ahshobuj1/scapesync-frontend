@@ -27,7 +27,7 @@ const HeroSection = () => {
             />
 
             <button className="bg-[#3BA334] rounded-lg cursor-pointer shadow-[0_8px_16px_0_#39A4323D] hover:scale-105 transition-all duration-300 py-[10px] px-[26px] text-white text-base font-bold">
-              Get Startedd
+              Get Started
             </button>
           </div>
 
@@ -39,14 +39,14 @@ const HeroSection = () => {
                 width={130}
                 height={134}
                 alt="hero phone logo"
-                className="bg-cover bg-center absolute -top-16 left-[130px] lg:left-[210px]"
+                className="bg-cover bg-center absolute -top-16 left-[130px] lg:left-[210px] animate-pulse"
               />
               <Image
                 src={frameImg}
                 width={240}
                 height={11}
                 alt="hero phone logo"
-                className="bg-cover bg-center absolute top-24 lg:top-34 left-[80px] lg:left-[220px] -z-1"
+                className="bg-cover bg-center absolute top-24 lg:top-34 left-[80px] lg:left-[220px] -z-1 animate-pulse"
               />
               <h2 className="text-5xl text-center lg:text-start lg:text-7xl font-bold text-[#212B36] mb-4">
                 All Your Jobs One Smart App

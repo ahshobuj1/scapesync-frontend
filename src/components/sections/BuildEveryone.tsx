@@ -26,14 +26,14 @@ const BuildEveryone = () => {
           width={240}
           height={11}
           alt="hero phone logo"
-          className="bg-cover bg-center absolute top-7 lg:top-11 left-[16%] lg:left-[48%] -z-1"
+          className="bg-cover bg-center absolute top-7 lg:top-11 left-[16%] lg:left-[48%] -z-1 animate-pulse"
         />
         <Image
           src={frame3Img}
           width={221}
           height={124}
           alt="hero phone logo"
-          className="bg-cover bg-center absolute top-24 lg:left-20 hidden lg:block"
+          className="bg-cover bg-center absolute top-24 lg:left-20 hidden lg:block animate-pulse"
         />
         <Image
           src={middleFrame}

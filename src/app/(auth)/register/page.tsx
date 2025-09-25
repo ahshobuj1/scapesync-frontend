@@ -60,14 +60,16 @@ export default function RegisterPage() {
 
       // console.log('[res]', res);
       if (res?.status === 201) {
-        router.push(
-          `/otp?email=${res?.data?.data?.email}&otp=${res?.data?.data?.otp}`
-        );
+        toast.success(res?.data?.message);
+        router.push(`/otp?email=${res?.data?.data?.email}`);
       }
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       if (err.response && err.response.data?.message) {
+        const message = err.response && err.response.data?.message;
+        toast.error(message);
+
         setError('email', {
           type: 'manual',
           message: err.response.data.message,
@@ -89,7 +91,7 @@ export default function RegisterPage() {
           className="bg-cover bg-center mt-6"
         />
       </div>
-      <div className="max-w-[480px] mx-auto mt-5 flex flex-col justify-center">
+      <div className="max-w-[480px] mx-auto mt-10 flex flex-col justify-center">
         <div className="flex flex-col justify-center items-center mb-6">
           <h3 className="text-2xl mb-2">Create your Account</h3>
           <p>When sports Meets smart Tech.</p>
@@ -105,7 +107,9 @@ export default function RegisterPage() {
               error={!!errors.first_name}
               helperText={errors.first_name?.message}
               sx={{
-                minWidth: '232px',
+                minWidth: {
+                  sm: '232px',
+                },
                 borderColor: '#919EAB52',
                 '& .MuiOutlinedInput-root': {
                   '&.Mui-focused fieldset': {
@@ -124,7 +128,9 @@ export default function RegisterPage() {
               error={!!errors.last_name}
               helperText={errors.last_name?.message}
               sx={{
-                minWidth: '232px',
+                minWidth: {
+                  sm: '232px',
+                },
                 borderColor: '#919EAB52',
                 '& .MuiOutlinedInput-root': {
                   '&.Mui-focused fieldset': {
@@ -137,6 +143,7 @@ export default function RegisterPage() {
               }}
             />
           </div>
+
           {/* Email */}
           <TextField
             {...register('email')}
@@ -250,14 +257,14 @@ export default function RegisterPage() {
         </form>
 
         <div>
-          <div className="mt-12 mb-6 flex justify-between items-center">
-            <div className="border-[1px] border-[#919EAB3D] min-w-[232px] h-[1px]"></div>
+          <div className="mt-6 md:mt-12 mb-6 flex justify-between items-center">
+            <div className="border-[1px] border-[#919EAB3D] min-w-36 lg:min-w-[232px] h-[1px]"></div>
             <p className="px-2">OR</p>
-            <div className="border-[1px] border-[#919EAB3D] min-w-[232px] h-[1px]"></div>
+            <div className="border-[1px] border-[#919EAB3D] min-w-36 lg:min-w-[232px] h-[1px]"></div>
           </div>
 
           <div>
-            <button className="py-3 text-base font-bold w-full rounded-lg cursor-pointer hover:scale-105 transition-all duration-300 flex justify-center items-center gap-2 text-[#637381] border-[1px] border-[#919EAB52] mb-8 ">
+            <button className="py-3 text-base font-bold w-full rounded-lg cursor-pointer hover:scale-105 transition-all duration-300 flex justify-center items-center gap-2 text-[#637381] border-[1px] border-[#919EAB52] mb-5 md:mb-8 ">
               <FcGoogle className="text-2xl" /> Continue with Google
             </button>
 
