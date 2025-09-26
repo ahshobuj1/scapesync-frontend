@@ -26,8 +26,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={publicSans.variable}>
-      <body className="antialiased">
-        <div className="max-w-[1440px] mx-auto">
+      <body className={`${publicSans.className} antialiased`}>
+        <div className="max-w-[1440px] mx-auto font-sans">
           <CssBaseline />
           {children}
           <Toaster position="top-center" />
